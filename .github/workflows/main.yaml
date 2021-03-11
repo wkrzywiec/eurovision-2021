@@ -18,6 +18,7 @@ jobs:
         run: |
           pip install pandas
           pip install --upgrade google-api-python-client
+          pip install plotly
       - name: Update data.csv
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
