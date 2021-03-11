@@ -22,10 +22,10 @@ jobs:
           pip install pandas
           pip install --upgrade google-api-python-client
       - name: Update data.csv
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: |
           python script.py
-        env:
-          YOUTUBE_API_KEY: {{ secrets.YOUTUBE_API_KEY }}
       - name: Commit data.csv
         run: |
           git config --local user.email "test@github.com"
