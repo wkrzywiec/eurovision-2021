@@ -1,14 +1,11 @@
 name: Main workflow
 on:
-  push:
-    branches:
-      - 'main'
   schedule:
     - cron: '0 */6 * * *'
 
 jobs:
   download:
-    name: Codecov Workflow
+    name: Fetch data
     runs-on: windows-latest
     
     steps:
@@ -28,11 +25,11 @@ jobs:
           python script.py
       - name: Commit data.csv
         run: |
-          git config --local user.email "test@github.com"
-          git config --local user.name "GitHub Action test"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           git add data.csv
           git commit -m "data.csv updated"
-      - name: Push changes # push the output folder to your repo
+      - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           branch: main
