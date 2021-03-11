@@ -1,0 +1,41 @@
+name: Main workflow
+on:
+  push:
+    branches:
+      - 'main'
+  schedule:
+    - cron: '0 */6 * * *'
+
+jobs:
+  download:
+    name: Codecov Workflow
+    runs-on: windows-latest
+    
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python
+        uses: actions/setup-python@master
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          pip install pandas
+          pip install --upgrade google-api-python-client
+      - name: Update data.csv
+        run: |
+          python script.py
+        env:
+          YOUTUBE_API_KEY: {{ secrets.YOUTUBE_API_KEY }}
+      - name: Commit data.csv
+        run: |
+          git config --local user.email "test@github.com"
+          git config --local user.name "GitHub Action test"
+          git add data.csv
+          git commit -m "data.csv updated"
+      - name: Push changes # push the output folder to your repo
+        uses: ad-m/github-push-action@master
+        with:
+          branch: main
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force: true
+      
