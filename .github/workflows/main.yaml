@@ -37,7 +37,13 @@ jobs:
           git add data.csv
           git add index.html
           git commit -m "data updated"
-      - name: Push changes
+      - name: Push changes to main branch
+        uses: ad-m/github-push-action@master
+        with:
+          branch: main
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force: true
+      - name: Push changes to main branch
         uses: ad-m/github-push-action@master
         with:
           branch: main
@@ -55,6 +61,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
+        with:
+          ref: gh-pages
       - name: Download new chart
         uses: actions/download-artifact@v2
         with:
