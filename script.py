@@ -3,6 +3,7 @@ import pandas as pd
 import os
 from googleapiclient.discovery import build
 from datetime import datetime
+import plotly.express as px
 
 def fetch_data():
 
@@ -27,6 +28,17 @@ def fetch_data():
 
     with open(str(current_path) + '\\data.csv', 'a') as data:
         data.write(f'\n{new_line_string}')
+
+    df2 = pd.read_csv(str(current_path) + '\\data.csv', sep=',')
+
+    fig = px.line(df2, x='time', y=df2.columns,title='YouTube views of 2021 Eurovision song contestants',
+        labels={
+            "value": "Views",
+            "time": "Date",
+            "variable": "Country"
+        })
+        
+    fig.write_html(str(current_path) + '\\line.html')
 
 if __name__ == "__main__":
     fetch_data()
