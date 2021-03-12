@@ -25,16 +25,17 @@ jobs:
           pip install pandas
           pip install --upgrade google-api-python-client
           pip install plotly
-      - name: Update data.csv
+      - name: Run script
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: |
           python script.py
-      - name: Commit data.csv
+      - name: Commit changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add data.csv
+          git add index.html
           git commit -m "data updated"
       - name: Push changes to main branch
         uses: ad-m/github-push-action@master
