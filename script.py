@@ -38,7 +38,7 @@ def fetch_data():
             "variable": "Country"
         })
 
-    fig.write_html(str(current_path) + '\\public.html')
+    fig.write_html(str(current_path) + '\\index.html')
 
 if __name__ == "__main__":
     fetch_data()
