@@ -13,21 +13,21 @@ def fetch_data():
 
     current_path = pathlib.Path().absolute()
 
-    df=pd.read_csv(str(current_path) + '\\sources.csv', sep=',')
-    ids = df['key'].str.cat(sep=',')
+    # df=pd.read_csv(str(current_path) + '\\sources.csv', sep=',')
+    # ids = df['key'].str.cat(sep=',')
 
-    youtube = build('youtube', 'v3', developerKey=api_key)
-    request = youtube.videos().list(id=ids, part='statistics')
-    response = request.execute()
+    # youtube = build('youtube', 'v3', developerKey=api_key)
+    # request = youtube.videos().list(id=ids, part='statistics')
+    # response = request.execute()
 
-    new_line = [datetime.now().strftime("%d/%m/%Y %H:%M:%S")]
-    for index, row in df.iterrows():
-        new_line.append(next((item for item in response['items'] if item['id'] == df['key'].at[index]), None)['statistics']['viewCount'])
+    # new_line = [datetime.now().strftime("%d/%m/%Y %H:%M:%S")]
+    # for index, row in df.iterrows():
+    #     new_line.append(next((item for item in response['items'] if item['id'] == df['key'].at[index]), None)['statistics']['viewCount'])
 
-    new_line_string = ','.join(map(str, new_line))
+    # new_line_string = ','.join(map(str, new_line))
 
-    with open(str(current_path) + '\\data.csv', 'a') as data:
-        data.write(f'\n{new_line_string}')
+    # with open(str(current_path) + '\\data.csv', 'a') as data:
+    #     data.write(f'\n{new_line_string}')
 
     df2 = pd.read_csv(str(current_path) + '\\data.csv', sep=',')
 
@@ -37,8 +37,8 @@ def fetch_data():
             "time": "Date",
             "variable": "Country"
         })
-        
-    fig.write_html(str(current_path) + '\\line.html')
+
+    fig.write_html(str(current_path) + '\\public.html')
 
 if __name__ == "__main__":
     fetch_data()
