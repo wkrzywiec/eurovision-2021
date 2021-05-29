@@ -6,8 +6,8 @@ on:
         description: 'Reason why it needs to be triggered manually'
         required: false
         default: 'beacuase I say so ;)'
-  schedule:
-    - cron: "0 */6 * * *"
+#   schedule:
+#     - cron: "0 */6 * * *"
 
 jobs:
   download:
